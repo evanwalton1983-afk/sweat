@@ -1,0 +1,4 @@
+node_modules/
+.netlify/
+tests/e2e/shots/
+*.log

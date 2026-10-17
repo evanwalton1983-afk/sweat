@@ -1,0 +1,146 @@
+{
+ "events": [
+  {
+   "id": "600055555",
+   "date": "2026-10-10T22:00Z",
+   "name": "UFC Fight Night: Alpha vs. Bravo",
+   "shortName": "Alpha vs Bravo",
+   "season": {
+    "year": 2026,
+    "type": 1
+   },
+   "competitions": [
+    {
+     "id": "401900101",
+     "date": "2026-10-11T02:00Z",
+     "type": {
+      "id": "8",
+      "abbreviation": "Lightweight"
+     },
+     "format": {
+      "regulation": {
+       "periods": 5
+      }
+     },
+     "status": {
+      "clock": 191.0,
+      "displayClock": "3:11",
+      "period": 2,
+      "type": {
+       "id": "2",
+       "name": "STATUS_IN_PROGRESS",
+       "state": "in",
+       "completed": false,
+       "detail": "R2, 3:11",
+       "shortDetail": "R2, 3:11"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5001",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "id": "5001",
+        "fullName": "Alan Alpha",
+        "displayName": "Alan Alpha",
+        "shortName": "A. Alpha",
+        "flag": {
+         "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+         "alt": "usa"
+        }
+       },
+       "records": [
+        {
+         "summary": "20-3-0"
+        }
+       ]
+      },
+      {
+       "id": "5002",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "id": "5002",
+        "fullName": "Bruno Bravo",
+        "displayName": "Bruno Bravo",
+        "shortName": "B. Bravo",
+        "flag": {
+         "href": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
+         "alt": "bra"
+        }
+       },
+       "records": [
+        {
+         "summary": "18-5-0"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "401900102",
+     "date": "2026-10-11T01:30Z",
+     "type": {
+      "id": "9",
+      "abbreviation": "Welterweight"
+     },
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "status": {
+      "clock": 222.0,
+      "displayClock": "3:42",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "detail": "Final",
+       "shortDetail": "Final"
+      },
+      "result": {
+       "name": "kotko",
+       "displayName": "KO/TKO"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5003",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "id": "5003",
+        "fullName": "Carlos Charlie",
+        "displayName": "Carlos Charlie",
+        "shortName": "C. Charlie",
+        "flag": {
+         "href": "https://a.espncdn.com/i/teamlogos/countries/500/mex.png",
+         "alt": "mex"
+        }
+       }
+      },
+      {
+       "id": "5004",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "id": "5004",
+        "fullName": "Dmitri Delta",
+        "displayName": "Dmitri Delta",
+        "shortName": "D. Delta",
+        "flag": {
+         "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+         "alt": "rus"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

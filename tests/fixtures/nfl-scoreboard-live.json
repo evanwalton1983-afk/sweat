@@ -1,0 +1,512 @@
+{
+ "leagues": [
+  {
+   "abbreviation": "NFL"
+  }
+ ],
+ "events": [
+  {
+   "id": "401900001",
+   "date": "2026-10-11T17:00Z",
+   "name": "Miami Dolphins at Buffalo Bills",
+   "shortName": "MIA @ BUF",
+   "season": {
+    "year": 2026,
+    "type": 2
+   },
+   "competitions": [
+    {
+     "id": "401900001",
+     "date": "2026-10-11T17:00Z",
+     "neutralSite": false,
+     "competitors": [
+      {
+       "id": "2",
+       "homeAway": "home",
+       "team": {
+        "id": "2",
+        "abbreviation": "BUF",
+        "displayName": "Buffalo Bills",
+        "shortDisplayName": "Bills",
+        "name": "Bills",
+        "location": "Buffalo",
+        "color": "00338d",
+        "alternateColor": "d50a0a",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png"
+       },
+       "score": "20",
+       "linescores": [
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 1
+        },
+        {
+         "value": 3,
+         "displayValue": "3",
+         "period": 2
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 3
+        },
+        {
+         "value": 3,
+         "displayValue": "3",
+         "period": 4
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "3-1"
+        }
+       ]
+      },
+      {
+       "id": "15",
+       "homeAway": "away",
+       "team": {
+        "id": "15",
+        "abbreviation": "MIA",
+        "displayName": "Miami Dolphins",
+        "shortDisplayName": "Dolphins",
+        "name": "Dolphins",
+        "location": "Miami",
+        "color": "008e97",
+        "alternateColor": "fc4c02",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"
+       },
+       "score": "17",
+       "linescores": [
+        {
+         "value": 0,
+         "displayValue": "0",
+         "period": 1
+        },
+        {
+         "value": 10,
+         "displayValue": "10",
+         "period": 2
+        },
+        {
+         "value": 0,
+         "displayValue": "0",
+         "period": 3
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 4
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "2-2"
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 125.0,
+      "displayClock": "2:05",
+      "period": 4,
+      "type": {
+       "id": "2",
+       "name": "STATUS_IN_PROGRESS",
+       "state": "in",
+       "completed": false,
+       "description": "2:05 - 4th",
+       "detail": "2:05 - 4th",
+       "shortDetail": "2:05 - 4th"
+      }
+     },
+     "odds": [
+      {
+       "provider": {
+        "name": "ESPN BET"
+       },
+       "details": "BUF -3.5",
+       "overUnder": 47.5,
+       "spread": -3.5,
+       "homeTeamOdds": {
+        "favorite": true,
+        "moneyLine": -185
+       },
+       "awayTeamOdds": {
+        "favorite": false,
+        "moneyLine": 155
+       }
+      }
+     ],
+     "situation": {
+      "down": 1,
+      "yardLine": 75,
+      "distance": 10,
+      "downDistanceText": "1st & 10 at MIA 25",
+      "shortDownDistanceText": "1st & 10",
+      "possessionText": "MIA 25",
+      "isRedZone": false,
+      "possession": "15",
+      "lastPlay": {
+       "text": "Touchback.",
+       "probability": {
+        "homeWinPercentage": 0.83,
+        "awayWinPercentage": 0.17,
+        "tiePercentage": 0.0
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401900002",
+   "date": "2026-10-11T20:25Z",
+   "name": "Kansas City Chiefs at Las Vegas Raiders",
+   "shortName": "KC @ LV",
+   "season": {
+    "year": 2026,
+    "type": 2
+   },
+   "competitions": [
+    {
+     "id": "401900002",
+     "date": "2026-10-11T20:25Z",
+     "neutralSite": false,
+     "competitors": [
+      {
+       "id": "13",
+       "homeAway": "home",
+       "team": {
+        "id": "13",
+        "abbreviation": "LV",
+        "displayName": "Las Vegas Raiders",
+        "shortDisplayName": "Raiders",
+        "name": "Raiders",
+        "location": "Las Vegas",
+        "color": "000000",
+        "alternateColor": "a5acaf",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png"
+       },
+       "score": "0",
+       "linescores": [],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "3-1"
+        }
+       ]
+      },
+      {
+       "id": "12",
+       "homeAway": "away",
+       "team": {
+        "id": "12",
+        "abbreviation": "KC",
+        "displayName": "Kansas City Chiefs",
+        "shortDisplayName": "Chiefs",
+        "name": "Chiefs",
+        "location": "Kansas City",
+        "color": "e31837",
+        "alternateColor": "ffb612",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png"
+       },
+       "score": "0",
+       "linescores": [],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "2-2"
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 900.0,
+      "displayClock": "15:00",
+      "period": 0,
+      "type": {
+       "id": "2",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Sun, October 11th at 4:25 PM EDT",
+       "detail": "Sun, October 11th at 4:25 PM EDT",
+       "shortDetail": "Sun, October 11th at 4:25 PM EDT"
+      }
+     },
+     "odds": [
+      {
+       "provider": {
+        "name": "ESPN BET"
+       },
+       "details": "KC -7",
+       "overUnder": 44.5,
+       "homeTeamOdds": {
+        "favorite": false,
+        "moneyLine": 260
+       },
+       "awayTeamOdds": {
+        "favorite": true,
+        "moneyLine": -320
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401900003",
+   "date": "2026-10-11T17:00Z",
+   "name": "Dallas Cowboys at Philadelphia Eagles",
+   "shortName": "DAL @ PHI",
+   "season": {
+    "year": 2026,
+    "type": 2
+   },
+   "competitions": [
+    {
+     "id": "401900003",
+     "date": "2026-10-11T17:00Z",
+     "neutralSite": false,
+     "competitors": [
+      {
+       "id": "21",
+       "homeAway": "home",
+       "team": {
+        "id": "21",
+        "abbreviation": "PHI",
+        "displayName": "Philadelphia Eagles",
+        "shortDisplayName": "Eagles",
+        "name": "Eagles",
+        "location": "Philadelphia",
+        "color": "06424d",
+        "alternateColor": "a5acaf",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png"
+       },
+       "score": "27",
+       "linescores": [
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 1
+        },
+        {
+         "value": 10,
+         "displayValue": "10",
+         "period": 2
+        },
+        {
+         "value": 3,
+         "displayValue": "3",
+         "period": 3
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 4
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "3-1"
+        }
+       ]
+      },
+      {
+       "id": "6",
+       "homeAway": "away",
+       "team": {
+        "id": "6",
+        "abbreviation": "DAL",
+        "displayName": "Dallas Cowboys",
+        "shortDisplayName": "Cowboys",
+        "name": "Cowboys",
+        "location": "Dallas",
+        "color": "002a5c",
+        "alternateColor": "b0b7bc",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png"
+       },
+       "score": "24",
+       "linescores": [
+        {
+         "value": 3,
+         "displayValue": "3",
+         "period": 1
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 2
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 3
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 4
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "2-2"
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "2",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "odds": [
+      {
+       "provider": {
+        "name": "ESPN BET"
+       },
+       "details": "PHI -3",
+       "overUnder": 48.5,
+       "spread": -3.0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401900004",
+   "date": "2026-10-11T17:00Z",
+   "name": "New York Jets at New England Patriots",
+   "shortName": "NYJ @ NE",
+   "season": {
+    "year": 2026,
+    "type": 2
+   },
+   "competitions": [
+    {
+     "id": "401900004",
+     "date": "2026-10-11T17:00Z",
+     "neutralSite": false,
+     "competitors": [
+      {
+       "id": "17",
+       "homeAway": "home",
+       "team": {
+        "id": "17",
+        "abbreviation": "NE",
+        "displayName": "New England Patriots",
+        "shortDisplayName": "Patriots",
+        "name": "Patriots",
+        "location": "New England",
+        "color": "002a5c",
+        "alternateColor": "c60c30",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png"
+       },
+       "score": "10",
+       "linescores": [
+        {
+         "value": 3,
+         "displayValue": "3",
+         "period": 1
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 2
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "3-1"
+        }
+       ]
+      },
+      {
+       "id": "20",
+       "homeAway": "away",
+       "team": {
+        "id": "20",
+        "abbreviation": "NYJ",
+        "displayName": "New York Jets",
+        "shortDisplayName": "Jets",
+        "name": "Jets",
+        "location": "New York",
+        "color": "115740",
+        "alternateColor": "ffffff",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png"
+       },
+       "score": "13",
+       "linescores": [
+        {
+         "value": 6,
+         "displayValue": "6",
+         "period": 1
+        },
+        {
+         "value": 7,
+         "displayValue": "7",
+         "period": 2
+        }
+       ],
+       "records": [
+        {
+         "name": "overall",
+         "summary": "2-2"
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "id": "2",
+       "name": "STATUS_HALFTIME",
+       "state": "in",
+       "completed": false,
+       "description": "Halftime",
+       "detail": "Halftime",
+       "shortDetail": "Halftime"
+      }
+     },
+     "odds": [
+      {
+       "provider": {
+        "name": "ESPN BET"
+       },
+       "details": "EVEN",
+       "overUnder": 41.5
+      }
+     ],
+     "situation": {
+      "down": 1,
+      "yardLine": 35,
+      "distance": 10,
+      "downDistanceText": "1st & 10 at NE 35",
+      "possessionText": "NE 35",
+      "possession": "17",
+      "isRedZone": false
+     }
+    }
+   ]
+  }
+ ]
+}

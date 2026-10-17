@@ -1,0 +1,20 @@
+{
+  "name": "sweat",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "e2e": "node tests/e2e/run.mjs",
+    "check:dashes": "node scripts/check-dashes.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9",
+    "@fontsource/big-shoulders-display": "5.2.5",
+    "@fontsource/barlow": "5.2.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
