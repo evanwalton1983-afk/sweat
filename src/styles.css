@@ -361,6 +361,8 @@ table.break td.r, table.break th.r { text-align: right; }
 .outcome { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); }
 .outcome .v { font: 800 26px/1 var(--num); text-align: right; }
 .note { font-size: 14px; color: var(--muted); }
+.verdict { font: 800 20px/1.2 var(--num); margin: 4px 0; }
+.math { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 6px; }
 input[type='range'] { width: 100%; accent-color: var(--chalk); min-height: 32px; }
 
 .preview { display: grid; gap: 10px; }

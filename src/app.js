@@ -2,7 +2,7 @@
 // every open bet's cash chance current.
 import {
   SPORTS, SPORT_KEYS, STATS, SEGMENTS, ENGINE_VERSION, evaluateLeg, evaluateBet, settleBet,
-  americanToDecimal, decimalToAmerican, impliedProb, hedgePlan, middleWindow, chanceInWindow, legLabel, fmtLine, fmtNum, parlayDecimal,
+  americanToDecimal, decimalToAmerican, impliedProb, hedgePlan, cashOutVerdict, middleWindow, chanceInWindow, legLabel, fmtLine, fmtNum, parlayDecimal,
 } from './engine.js';
 import { espnDate, shiftDate, findGame, teamScore } from './espn.js';
 import * as feed from './feed.js';
@@ -12,7 +12,7 @@ import {
   esc, money, pct, bucket, odds as fmtOdds, dayLabel, kickoff, clockTime, ago, gameClock, icon, sparkline, bigline, profitChart, betTitle,
 } from './ui.js';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.1.0';
 const MARKET_NAMES = { spread: 'Spread', moneyline: 'Moneyline', total: 'Total', team_total: 'Team total', prop: 'Player' };
 const SETTLED = new Set(['won', 'lost', 'push', 'void', 'cashed']);
 const DEFAULTS = {
@@ -1013,7 +1013,11 @@ function hedgeCalc(s) {
   const ifHedge = amt * (d2 - 1) - lossIfLose;
   const ev = Number.isFinite(win) ? win * ifFirst + lose * ifHedge + (mid ? pm * mid.both : 0) : NaN;
   const hold = Number.isFinite(pWin) ? pWin * win1 - lose * lossIfLose : NaN;
-  return { ...out, d2, lock, amt, mid, win, lose, ifFirst, ifHedge, ev, hold };
+  const locked = win1 - lock;
+  const worst = Math.min(ifFirst, ifHedge);
+  const cash = num(s.cash);
+  const verdict = cashOutVerdict(locked, cash, stake, b.bonus);
+  return { ...out, d2, lock, amt, mid, win, lose, ifFirst, ifHedge, ev, hold, locked, worst, cash, verdict, math: !!s.math };
 }
 
 function hedgeOutHTML(c) {
@@ -1021,10 +1025,29 @@ function hedgeOutHTML(c) {
   const row = (label, v, p) => `<div class="outcome"><span>${esc(label)}${Number.isFinite(p) ? `<br><span class="note">about ${pct(p)}% from here</span>` : ''}</span><span class="v ${v >= 0 ? 'pos' : 'neg'}">${esc(money(v, { sign: true }))}</span></div>`;
   const locked = c.win1 - c.lock;
   return `<p class="note">${esc(`Full lock is ${money(c.lock)} on ${c.other}. ${locked >= 0 ? `That locks in ${money(locked, { sign: true })}` : `That caps the loss at ${money(-locked)}`} whichever side wins.`)}</p>
+    <div class="outcome"><span>Worst case at ${esc(money(c.amt))} hedged</span><span class="v ${c.worst >= 0 ? 'pos' : 'neg'}">${esc(money(c.worst, { sign: true }))}</span></div>
     ${row(`If ${c.mid ? 'only ' : ''}${legLabel(c.leg, gameFor(c.leg))} hits`, c.ifFirst, c.win)}
     ${row(`If ${c.mid ? 'only ' : ''}${c.other} hits`, c.ifHedge, c.lose)}
     ${c.mid ? row(`If it lands ${c.mid.w.lo === c.mid.w.hi ? `on ${c.mid.w.lo}` : `${c.mid.w.lo} to ${c.mid.w.hi}`} (both win)`, c.mid.both, c.mid.p) : ''}
-    ${Number.isFinite(c.hold) && Number.isFinite(c.ev) ? `<p class="note">${esc(`Holding is worth ${money(c.hold, { sign: true })} on average. This hedge is worth ${money(c.ev, { sign: true })} on average, ${c.ev >= c.hold ? 'more' : 'less'} than holding by ${money(Math.abs(c.ev - c.hold))}. Hedging trades average value for certainty.`)}</p>` : ''}`;
+    ${Number.isFinite(c.hold) && Number.isFinite(c.ev) ? `<p class="note">${esc(`Holding is worth ${money(c.hold, { sign: true })} on average. This hedge is worth ${money(c.ev, { sign: true })} on average, ${c.ev >= c.hold ? 'more' : 'less'} than holding by ${money(Math.abs(c.ev - c.hold))}. Hedging trades average value for certainty.`)}</p>` : ''}
+    ${c.verdict ? `<p class="verdict ${c.verdict.better === 'cash' ? 'neg' : 'pos'}">${esc(c.verdict.better === 'hedge' ? `Hedge beats cash out by ${money(c.verdict.diff)}.` : c.verdict.better === 'cash' ? `Cash out is better by ${money(-c.verdict.diff)}.` : 'Hedge and cash out are the same.')}</p><p class="note">${esc(`Full hedge locks ${money(c.locked, { sign: true })}. Cash out gives ${money(c.verdict.cashProfit, { sign: true })}.`)}</p>` : ''}
+    <button type="button" class="btn" data-action="hedge-math" aria-expanded="${c.math}">${c.math ? 'Hide the math' : 'Show the math'}</button>
+    ${c.math ? hedgeMathHTML(c) : ''}`;
+}
+
+function hedgeMathHTML(c) {
+  const m = (v) => money(v, { sign: true });
+  const lines = [
+    `Payout if it cashes: ${money(c.stake)} x (price ${fmtNum(betDecimalNow(c.b))} - 1) = ${m(c.win1)} profit.`,
+    `At risk if it loses: ${money(c.lossIfLose)}${c.b.bonus ? ' (bonus bet, the stake was never yours)' : ''}.`,
+    `Other side pays ${fmtNum(c.d2)} per $1 (decimal price).`,
+    `Full lock stake = (${money(c.win1)} + ${money(c.lossIfLose)}) / ${fmtNum(c.d2)} = ${money(c.lock)}.`,
+    `If your bet hits: ${money(c.win1)} - ${money(c.amt)} = ${m(c.ifFirst)}.`,
+    `If the other side hits: ${money(c.amt)} x (${fmtNum(c.d2)} - 1) - ${money(c.lossIfLose)} = ${m(c.ifHedge)}.`,
+    `Worst case is the smaller of the two: ${m(c.worst)}.`,
+  ];
+  if (c.verdict) lines.push(`Cash out profit = ${money(c.cash)} - ${money(c.b.bonus ? 0 : c.stake)} = ${m(c.verdict.cashProfit)}. Compared with the full lock of ${m(c.locked)}, the difference is ${m(c.verdict.diff)}.`);
+  return `<ul class="math">${lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>`;
 }
 
 // Update the numbers in place so the slider can be dragged and the keyboard stays up.
@@ -1055,7 +1078,7 @@ function sheetHedge(s) {
   if (!c) return `${head}<p>Hedging works on a straight bet, or on a parlay with one leg left. This one has more than one leg still open.</p>`;
   const pass = state.settings.passcode;
   return `${head}
-    <p class="sub">${esc(`${legLabel(c.leg, gameFor(c.leg))}. ${money(c.stake)} to win ${money(c.win1)}.${Number.isFinite(c.pWin) ? ` Cashes ${pct(c.pWin)}% of the time from here.` : ''}`)}</p>
+    <p class="sub">${esc(`${legLabel(c.leg, gameFor(c.leg))}. ${money(c.stake)} to win ${money(c.win1)} (pays ${money(c.stake + c.win1)} back).${Number.isFinite(c.pWin) ? ` Cashes ${pct(c.pWin)}% of the time from here.` : ''}`)}</p>
     <div class="fields">
       ${c.hasLine ? numField('Other side line now', 'sheet.line', s.line, c.leg.market === 'spread' ? fmtLine(-c.leg.line) : fmtNum(c.leg.line), 'decimal') : ''}
       ${numField('Other side price now', 'sheet.price', s.price, '+150', 'numeric')}
@@ -1063,6 +1086,7 @@ function sheetHedge(s) {
     ${pass && state.caps.odds ? `<button class="btn" data-action="live-prices" ${s.loading ? 'disabled' : ''}>${s.loading ? 'Getting prices...' : 'Get live prices'}</button>` : ''}
     ${s.priceNote ? `<p class="note">${esc(s.priceNote)}</p>` : ''}
     <label class="field"><span id="hedge-amt-label">${c.ok ? esc(`Hedge amount: ${money(c.amt)}`) : 'Hedge amount'}</span><input id="hedge-amt" type="range" min="0" max="${c.ok ? Math.max(1, Math.ceil(c.lock * 2)) : 1}" step="1" value="${c.ok ? Math.round(c.amt) : 0}" data-bind="sheet.amount" ${c.ok ? '' : 'disabled'}></label>
+    <label class="field">Book cash out offer now (optional)<input class="input" inputmode="decimal" data-bind="sheet.cash" value="${esc(s.cash || '')}" placeholder="${esc(money(c.stake))}" autocomplete="off"></label>
     <div id="hedge-out">${hedgeOutHTML(c)}</div>`;
 }
 
@@ -1937,7 +1961,7 @@ function onInput(e) {
         t.textContent = Number.isFinite(dec) && Number.isFinite(stake) ? money(stake * (dec - 1)) : 'Enter the price';
       }
     } else if (root === 'sheet' && state.sheet && state.sheet.type === 'hedge') {
-      if (rest[0] !== 'amount') state.sheet.amount = '';
+      if (rest[0] !== 'amount' && rest[0] !== 'cash') state.sheet.amount = '';
       renderHedgeOut();
     } else if (root === 'sheet' && state.sheet && state.sheet.type === 'pick' && rest[0] === 'stat') {
       state.sheet.choice = null;
@@ -2083,9 +2107,12 @@ async function onClick(e) {
           price = String((other === 'over' ? o.overOdds : o.underOdds) || '');
         }
       }
-      state.sheet = { type: 'hedge', id, line, price, amount: '' };
+      state.sheet = { type: 'hedge', id, line, price, amount: '', cash: '', math: false };
       return renderLayer();
     }
+    case 'hedge-math':
+      state.sheet.math = !state.sheet.math;
+      return renderHedgeOut();
     case 'live-prices':
       return fetchLivePrices();
     case 'flip': {

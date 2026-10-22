@@ -32,7 +32,7 @@ Bets stay on your device. Scores come from ESPN's public feed.
 - **Hedge and middle.** Enter the other side's line and price (or fetch the best live price with
   your Odds API key). Sweat shows the stake that locks the same result either way, a slider for a
   partial hedge, each outcome with its chance from here, the middle window when there is one, and
-  what holding versus hedging is worth on average.
+  what holding versus hedging is worth on average. Type the book's cash out offer for a plain verdict (hedge beats cash out by so much, or cash out is better), and tap Show the math to see every step.
 - **Alerts.** Big swings (10 to 25 points, your choice) and settlements, with a sound and a
   notification when Sweat is in the background. Smart lights: a web address is called when the
   mood of your open bets changes (covering, coin flip, trouble) and when a bet settles. Works with

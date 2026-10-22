@@ -51,6 +51,18 @@ test('hedge locks the same profit both ways', () => {
   assert.equal(E.hedgePlan(0, 100, 100), null);
 });
 
+test('cash out verdict compares the full hedge lock with the offer', () => {
+  const h = E.hedgePlan(100, 300, -250); // locks about +$14
+  let v = E.cashOutVerdict(h.lockedProfit, 105, 100, false); // cash out profit +$5
+  assert.equal(v.better, 'hedge');
+  assert.ok(Math.abs(v.diff - (h.lockedProfit - 5)) < 0.01);
+  v = E.cashOutVerdict(h.lockedProfit, 120, 100, false);
+  assert.equal(v.better, 'cash');
+  assert.equal(E.cashOutVerdict(50, 150, 100, false).better, 'same');
+  assert.equal(E.cashOutVerdict(50, 50, 100, true).better, 'same'); // bonus: offer is all profit
+  assert.equal(E.cashOutVerdict(50, NaN, 100, false), null);
+});
+
 test('final grading: spreads, totals, moneylines and pushes', () => {
   const g = final('nfl', 24, 21);
   assert.equal(E.evaluateLeg(leg({ market: 'spread', side: 'home', line: -3 }), g).status, 'push');

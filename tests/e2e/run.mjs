@@ -198,6 +198,15 @@ try {
   await slider.evaluate((el) => { el.value = '5'; el.dispatchEvent(new Event('input', { bubbles: true })); });
   await pause(200);
   check((await slider.evaluate((el) => el.isConnected)) && (await page.innerText('#hedge-amt-label')) === 'Hedge amount: $5.00', 'hedge slider moves without rebuilding the sheet');
+  check(await page.isVisible('text=Worst case at'), 'hedge shows the worst case');
+  await page.fill('[data-bind="sheet.cash"]', '1');
+  await pause(200);
+  check(await page.isVisible('text=Hedge beats cash out by') || await page.isVisible('text=Cash out is better by'), 'hedge gives a cash out verdict');
+  check((await slider.evaluate((el) => el.isConnected)) && (await page.innerText('#hedge-amt-label')) === 'Hedge amount: $5.00', 'typing a cash out keeps the slider');
+  await page.click('[data-action="hedge-math"]');
+  await pause(200);
+  check(await page.isVisible('text=Full lock stake ='), 'hedge shows the math on tap');
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'hedge sheet has no sideways scroll at phone width');
   await shot('10-hedge');
   await page.click('[data-action="close"] >> nth=-1');
 
