@@ -116,6 +116,17 @@ export function hedgePlan(stake, odds, hedgeOdds) {
   return { hedgeStake: round2(hedge), lockedProfit: round2(locked) };
 }
 
+// Hedge versus the book's cash out offer. lockedProfit: what a full hedge locks (it can be a
+// loss). The cash out profit is the offer minus your stake (a bonus bet's stake was never yours).
+// The formulas for the hedge itself follow arbitrage_hedge in penaltyblog (MIT,
+// github.com/martineastwood/penaltyblog); the code here is written fresh for Sweat.
+export function cashOutVerdict(lockedProfit, cashOut, stake, bonus) {
+  if (!Number.isFinite(lockedProfit) || !Number.isFinite(cashOut) || cashOut < 0) return null;
+  const cashProfit = cashOut - (bonus ? 0 : Number(stake) || 0);
+  const diff = round2(lockedProfit - cashProfit);
+  return { cashProfit: round2(cashProfit), diff, better: diff > 0.005 ? 'hedge' : diff < -0.005 ? 'cash' : 'same' };
+}
+
 // ---------------------------------------------------------------- normal and friends
 
 function erf(x) {

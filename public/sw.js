@@ -1,6 +1,6 @@
 // Sweat service worker: keeps the app shell available offline and shows alerts. Live data
 // (/api/*) always goes to the network.
-const VERSION = 'sweat-25f79a7b98';
+const VERSION = 'sweat-847990a085';
 const SHELL = [
   '/',
   '/manifest.webmanifest',
